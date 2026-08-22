@@ -1,0 +1,62 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block title %}Home | Saiful Hoque{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+  <div class="container hero-grid">
+    <div class="hero-text">
+      <span class="badge">Full-Stack Python Developer</span>
+      <h1>Hi, I'm <span class="highlight">Saiful Hoque</span></h1>
+      <p>I build clean, scalable web applications using Python, Django, React, MySQL, and modern web technologies, with a strong focus on performance, maintainability, and user experience. SQA Certified with knowledge of software testing and quality assurance practices. Passionate about solving real-world problems through reliable, efficient, and innovative software solutions.
+</p>
+      <div class="hero-cta">
+        <a href="{% url 'project_list' %}" class="btn btn-primary">View All Projects</a>
+        <a href="{% url 'contact' %}" class="btn btn-secondary">Get In Touch</a>
+      </div>
+    </div>
+    <div class="hero-avatar">
+      <img src="{% static 'portfolio/images/profile.jpg' %}" alt="Saiful Hoque" class="avatar-img" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400'">
+    </div>
+  </div>
+</section>
+
+<section class="skills-section">
+  <div class="container">
+    <h2 class="section-title">Core Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card">🐍 Python / Django</div>
+      <div class="skill-card">🗄️ SQL / PostgreSQL / SQLite</div>
+      <div class="skill-card">🌐 HTML5 & CSS3 Flexbox</div>
+      <div class="skill-card">📦 REST APIs & JSON</div>
+      <div class="skill-card">🐙 Git & GitHub</div>
+    </div>
+  </div>
+</section>
+
+<section class="featured-section">
+  <div class="container">
+    <h2 class="section-title">Featured Projects</h2>
+    <div class="project-grid">
+      {% for project in projects %}
+      <div class="project-card">
+        {% if project.image %}
+          <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-card-img">
+        {% else %}
+          <div class="no-img-placeholder">💻 {{ project.title }}</div>
+        {% endif %}
+        <div class="project-card-body">
+          <span class="tech-tag">{{ project.technology }}</span>
+          <h3>{{ project.title }}</h3>
+          <p>{{ project.short_description }}</p>
+          <a href="{% url 'project_detail' project.pk %}" class="btn btn-sm btn-outline">View Details →</a>
+        </div>
+      </div>
+      {% empty %}
+      <p class="subtitle">No projects added yet. Please add some from the Django Admin panel.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

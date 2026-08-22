@@ -1,0 +1,35 @@
+{% extends 'portfolio/base.html' %}
+
+{% block title %}Projects | My Portfolio{% endblock %}
+
+{% block content %}
+<section class="page-container container">
+  <h1 class="section-title">All Projects</h1>
+  <p class="subtitle">A collection of academic, open-source, and personal development projects.</p>
+  
+  <div class="project-grid">
+    {% for project in projects %}
+    <div class="project-card">
+      {% if project.image %}
+        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-card-img">
+      {% else %}
+        <div class="no-img-placeholder">💻 {{ project.title }}</div>
+      {% endif %}
+      <div class="project-card-body">
+        <span class="tech-tag">{{ project.technology }}</span>
+        <h3>{{ project.title }}</h3>
+        <p>{{ project.short_description }}</p>
+        <div class="card-footer-btns">
+          <a href="{% url 'project_detail' project.pk %}" class="btn btn-sm btn-outline">Details</a>
+          {% if project.github_link %}
+          <a href="{{ project.github_link }}" target="_blank" class="btn btn-sm btn-github">GitHub</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p class="subtitle">No projects available at this moment.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
