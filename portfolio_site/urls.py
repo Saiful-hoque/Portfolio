@@ -8,5 +8,5 @@ urlpatterns = [
     path('', include('portfolio.urls')),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# DEBUG True বা False যাই হোক না কেন, মিডিয়া ফাইল শো করবে
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
